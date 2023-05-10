@@ -77,6 +77,7 @@
       codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result)
         document.getElementById('result').textContent = result.text
+        displayRandomOffer();
       }).catch((err) => {
         console.error(err)
         document.getElementById('result').textContent = err
@@ -89,6 +90,7 @@
           // properly decoded qr code
           console.log('Found QR code!', result)
           document.getElementById('result').textContent = result.text
+          displayRandomOffer();
         }
 
         if (err) {
@@ -166,6 +168,37 @@
           console.error(err)
         })
     })
+  </script>
+
+  <script>
+
+    function displayRandomOffer() {
+        const offers = [
+          {
+            title: 'Offer 1',
+            image: 'https://via.placeholder.com/200?text=Offer+1',
+            discount: '10%'
+          },
+          {
+            title: 'Offer 2',
+            image: 'https://via.placeholder.com/200?text=Offer+2',
+            discount: '20%'
+          },
+          {
+            title: 'Offer 3',
+            image: 'https://via.placeholder.com/200?text=Offer+3',
+            discount: '30%'
+          }
+        ];
+  
+        const randomOffer = offers[Math.floor(Math.random() * offers.length)];
+  
+        document.getElementById('offer-title').textContent = randomOffer.title;
+        document.getElementById('offer-image').src = randomOffer.image;
+        document.getElementById('offer-discount').textContent = `Discount: ${randomOffer.discount}`;
+  
+        document.getElementById('offer-container').style.display = 'block';
+      }
   </script>
 
 </body>
