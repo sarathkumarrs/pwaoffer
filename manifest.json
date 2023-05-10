@@ -1,0 +1,17 @@
+{
+    "name": "Efuturex",
+    "short_name": "PWA",
+    "description": "A simple Progressive Web App example",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#f0f0f0",
+    "theme_color": "#333",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}
+
