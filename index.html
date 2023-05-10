@@ -12,6 +12,42 @@
   <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
   <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://unpkg.com/normalize.css@8.0.0/normalize.css">
   <link rel="stylesheet" rel="preload" as="style" onload="this.rel='stylesheet';this.onload=null" href="https://unpkg.com/milligram@1.3.0/dist/milligram.min.css">
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  </style>
+
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -67,10 +103,13 @@
       <label>Result:</label>
       <pre><code id="result"></code></pre>
 
-      <div id="offer-container" style="display: none;">
-        <h2 id="offer-title"></h2>
-        <img id="offer-image" src="" alt="Offer image" style="width: 200px; height: 200px;">
-        <p id="offer-discount"></p>
+      <div id="offer-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2 id="offer-title"></h2>
+          <img id="offer-image" src="" alt="Offer image" style="width: 200px; height: 200px;">
+          <p id="offer-discount"></p>
+        </div>
       </div>
 
     </section>
@@ -207,10 +246,24 @@
         const randomOffer = offers[Math.floor(Math.random() * offers.length)];
   
         document.getElementById('offer-title').textContent = randomOffer.title;
-        document.getElementById('offer-image').src = randomOffer.image;
-        document.getElementById('offer-discount').textContent = `Discount: ${randomOffer.discount}`;
-  
-        document.getElementById('offer-container').style.display = 'block';
+      document.getElementById('offer-image').src = randomOffer.image;
+      document.getElementById('offer-discount').textContent = `Discount: ${randomOffer.discount}`;
+
+      // Display the modal with the offer
+      const modal = document.getElementById('offer-modal');
+      modal.style.display = 'block';
+
+      // Get the close button and add the click event listener
+      const closeButton = modal.getElementsByClassName('close')[0];
+      closeButton.onclick = function() {
+        modal.style.display = 'none';
+      };
+      // Close the modal when the user clicks outside of the modal content
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = 'none';
+        }
+      };
       }
   </script>
 
